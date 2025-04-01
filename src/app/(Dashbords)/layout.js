@@ -1,8 +1,10 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
-import { Sidebar } from "@/components/ui/sidebar"
-// import "../app/globals.css";
+import Navbar from "@/components/Navbar";
+import * as React from "react";
+import Tooltip from "@mui/material/Tooltip";
+import { Separator } from "@/components/ui/separator";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,8 +32,14 @@ export default function DashbordLayout({ children }) {
       >
         <SidebarProvider>
           <AppSidebar />
-          <main>
-            <SidebarTrigger />  
+          <main className="w-full px-1">
+            <div className="flex gap-3">
+              <Tooltip title="Ctrl+B">
+                <SidebarTrigger />
+              </Tooltip>
+              <Navbar />
+            </div>
+            <Separator />
             {children}
           </main>
         </SidebarProvider>
