@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "../app/globals.css";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Sidebar } from "@/components/ui/sidebar"
+// import "../app/globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +28,13 @@ export default function DashbordLayout({ children }) {
         data-gr-ext-installed=""
         cz-shortcut-listen="true"
       >
-        Hello world
-        {children}
+        <SidebarProvider>
+          <AppSidebar />
+          <main>
+            <SidebarTrigger />  
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   );

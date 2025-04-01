@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "../app/globals.css";
 
 const geistSans = Geist({
@@ -25,7 +26,6 @@ export default function HomeLayout({ children }) {
         data-gr-ext-installed=""
         cz-shortcut-listen="true"
       >
-        Hello world
         {children}
       </body>
     </html>
