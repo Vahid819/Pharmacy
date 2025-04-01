@@ -10,12 +10,12 @@ export default async function connectDB() {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    connection.isConnected = mongoose.connection.readyState;
-    console.log("Connected to MongoDB");
+    connection.isConnected = mongoose.connection[0].readyState;
+    console.log("Connected to MongoDB Successfully...");
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
     throw new Error("Failed to connect to MongoDB");
