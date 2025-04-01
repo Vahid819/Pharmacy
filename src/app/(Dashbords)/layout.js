@@ -33,11 +33,11 @@ export default function DashbordLayout({ children }) {
         <SidebarProvider>
           <AppSidebar />
           <main className="w-full px-1">
-            <div className="flex gap-3">
+            <div className="flex gap-3 my-1">
               <Tooltip title="Ctrl+B">
                 <SidebarTrigger />
               </Tooltip>
-              <Navbar />
+              <Navbar />  
             </div>
             <Separator />
             {children}

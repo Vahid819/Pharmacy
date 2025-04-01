@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react";
 
 import {
@@ -12,60 +12,53 @@ import {
   SidebarMenuItem,
   User2,
   ChevronUp,
-  SidebarFooter,
 } from "@/components/ui/sidebar";
 
 const items = [
-    {
-      title: "Home",
-      url: "#",
-      icon: Home,
-    },
-    {
-      title: "Inbox",
-      url: "#",
-      icon: Inbox,
-    },
-    {
-      title: "Calendar",
-      url: "#",
-      icon: Calendar,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: Search,
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
-    },
-  ];
-
+  {
+    title: "Home",
+    url: "/Dashbord",
+    icon: Home,
+  },
+  {
+    title: "Sales",
+    url: "#",
+    icon: Home,
+  },
+  {
+    title: "Purchases",
+    url: "#",
+    icon: Inbox,
+  },
+  {
+    title: "Inventory",
+    url: "#",
+    icon: Calendar,
+  },
+];
 
 function Mainsidebar() {
-    return (
-        <SidebarContent>
-            <SidebarGroup>
-              <SidebarGroupLabel>Application</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <a href={item.url}>
-                          <item.icon />
-                          <span>{item.title}</span>
-                        </a>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          </SidebarContent>
-      )
+  return (
+    <SidebarContent>
+      <SidebarGroup>
+        <SidebarGroupLabel>Application</SidebarGroupLabel>
+        <SidebarGroupContent>
+          <SidebarMenu>
+            {items.map((item) => (
+              <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild>
+                  <a href={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </a>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroupContent>
+      </SidebarGroup>
+    </SidebarContent>
+  );
 }
 
-export default Mainsidebar
+export default Mainsidebar;

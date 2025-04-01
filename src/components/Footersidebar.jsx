@@ -1,5 +1,6 @@
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Avtar from "./Avtar";
+import Badge from "@mui/material/Badge";
 import {
   SidebarMenu,
   SidebarMenuButton,
@@ -23,18 +24,14 @@ function Footersidebar() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
+                <Badge badgeContent={5} color="primary" className="z-10"> 
               <SidebarMenuButton>
                 {/* <User2 /> */}
-                <Avatar>
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="@shadcn"
-                  />
-                  <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+                  <Avtar className={"bg-transparent"}/>
                 Username
                 {/* <ChevronUp className="ml-auto" /> */}
               </SidebarMenuButton>
+                </Badge>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               side="top"
