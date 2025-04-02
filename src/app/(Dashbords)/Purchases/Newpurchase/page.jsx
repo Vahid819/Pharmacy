@@ -3,7 +3,7 @@ import React from 'react'
 function page() {
   return (
     <div>
-      Main dashbord page
+      New Purchase page
     </div>
   )
 }

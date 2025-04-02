@@ -18,70 +18,53 @@ import Link from "next/link";
 export function MenubarDemo() {
   return (
     <Menubar>
+      {/* Sales menu */}
       <MenubarMenu className="mx-10">
         <MenubarTrigger>Sale</MenubarTrigger>
         <MenubarContent className={"flex md:w-32 justify-around flex-wrap"}>
-          <Link href={"/Dashbord/Sale"}>
+          <Link href={"/Sales/Sale"}>
             <MenubarItem>Sales</MenubarItem>
           </Link>
-          <Link href={"/Dashbord/Newsale"}>
+          <Link href={"/Sales/Newsale"}>
             <MenubarItem>New Sale</MenubarItem>
           </Link>
-          <Link href={"/Dashbord/Salereturn"}>
+          
+          <Link href={"/Sales/Salereturn"}>
             <MenubarItem>Sales Return</MenubarItem>
           </Link>
-          <Link href={"/Dashbord/Newreturn"}>
+          <Link href={"/Sales/Newreturn"}>
             <MenubarItem>New Return</MenubarItem>
           </Link>
+          
         </MenubarContent>
       </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>Edit</MenubarTrigger>
-        <MenubarContent>
+      {/* Purchases menu */}
+      <MenubarMenu className="mx-10">
+        <Link href={"/Purchases"}><MenubarTrigger>Purchase</MenubarTrigger></Link>
+        <MenubarContent className={"flex md:w-32 justify-around flex-wrap"}>
+          <Link href={"/Purchases/Purchase"}>
           <MenubarItem>
-            Undo <MenubarShortcut>⌘Z</MenubarShortcut>
+            Purchase
           </MenubarItem>
+          </Link>
+          <Link href={"/Purchases/Newpurchase"}>
           <MenubarItem>
-            Redo <MenubarShortcut>⇧⌘Z</MenubarShortcut>
+            New Purchase
           </MenubarItem>
-          <MenubarSeparator />
-          <MenubarSub>
-            <MenubarSubTrigger>Find</MenubarSubTrigger>
-            <MenubarSubContent>
-              <MenubarItem>Search the web</MenubarItem>
-              <MenubarSeparator />
-              <MenubarItem>Find...</MenubarItem>
-              <MenubarItem>Find Next</MenubarItem>
-              <MenubarItem>Find Previous</MenubarItem>
-            </MenubarSubContent>
-          </MenubarSub>
-          <MenubarSeparator />
-          <MenubarItem>Cut</MenubarItem>
-          <MenubarItem>Copy</MenubarItem>
-          <MenubarItem>Paste</MenubarItem>
+          </Link>
+          <Link href={"/Purchases/Purchasereturn"}>
+          <MenubarItem>
+            Purchase Return
+          </MenubarItem>
+          </Link>
+
         </MenubarContent>
       </MenubarMenu>
+      {/* Inventary menu */}
       <MenubarMenu>
-        <MenubarTrigger>View</MenubarTrigger>
-        <MenubarContent>
-          <MenubarCheckboxItem>Always Show Bookmarks Bar</MenubarCheckboxItem>
-          <MenubarCheckboxItem checked>
-            Always Show Full URLs
-          </MenubarCheckboxItem>
-          <MenubarSeparator />
-          <MenubarItem inset>
-            Reload <MenubarShortcut>⌘R</MenubarShortcut>
-          </MenubarItem>
-          <MenubarItem disabled inset>
-            Force Reload <MenubarShortcut>⇧⌘R</MenubarShortcut>
-          </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem inset>Toggle Fullscreen</MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem inset>Hide Sidebar</MenubarItem>
-        </MenubarContent>
+        <Link href={"/Inventary"}><MenubarTrigger>Inventary</MenubarTrigger></Link>
       </MenubarMenu>
-      <MenubarMenu>
+      {/* <MenubarMenu>
         <MenubarTrigger>Market Place</MenubarTrigger>
         <MenubarContent>
           <MenubarRadioGroup value="benoit">
@@ -94,7 +77,7 @@ export function MenubarDemo() {
           <MenubarSeparator />
           <MenubarItem inset>Add Profile...</MenubarItem>
         </MenubarContent>
-      </MenubarMenu>
+      </MenubarMenu> */}
     </Menubar>
   );
 }
