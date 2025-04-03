@@ -20,7 +20,7 @@ export function MenubarDemo() {
     <Menubar>
       {/* Sales menu */}
       <MenubarMenu className="mx-10">
-        <MenubarTrigger>Sale</MenubarTrigger>
+        <Link href={"/Sales"}><MenubarTrigger>Sale</MenubarTrigger></Link>
         <MenubarContent className={"flex md:w-32 justify-around flex-wrap"}>
           <Link href={"/Sales/Sale"}>
             <MenubarItem>Sales</MenubarItem>
