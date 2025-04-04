@@ -21,21 +21,31 @@ import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const invoices = [
   {
     invoice: "INV001",
-    paymentStatus: "Paid",
+    mrp: 100.00,
+    Batch: "Batch001",
     totalAmount: 250.00,
     paymentMethod: "Credit Card",
   },
    {
     invoice: "INV002",
-    paymentStatus: "Pending",
+    mrp: 200.00,
+    Batch: "Batch002",
     totalAmount: 150.00,
     paymentMethod: "PayPal",
    },
    {
     invoice: "INV003",
-    paymentStatus: "Paid",
+    mrp: 300.00,
+    Batch: "Batch003",
     totalAmount: 300.00,
     paymentMethod: "Bank Transfer",
+   },
+   {
+    invoice: "INV004",
+    mrp: 400.00,
+    Batch: "Batch004",
+    totalAmount: 500.00,
+    paymentMethod: "Cash",
    }
 ]
 
@@ -64,7 +74,7 @@ function page() {
             <TableHeader>
               <TableRow className={""}>
                 <TableHead className="w-[100px] text-center">Iteam</TableHead>
-                <TableHead className={"text-center w-[100px] "}>Loc</TableHead>
+                <TableHead className={"text-center w-[100px] "}>Paymethod</TableHead>
                 <TableHead className={"text-center w-[100px] "}>Batch</TableHead>
                 <TableHead className={"text-center w-[100px] "}>Expiry</TableHead>
                 <TableHead className={"text-center w-[100px] "}>MRP</TableHead>
@@ -79,10 +89,11 @@ function page() {
                   <TableCell className="text-center font-medium">
                     {invoice.invoice}
                   </TableCell>
-                  <TableCell className={"text-center"}>{invoice.paymentStatus}</TableCell>
-                  <TableCell className={"text-center"}>hkla</TableCell>
+                  <TableCell className={"text-center"}><Input className={"w-36"} /></TableCell>
+                  {/* <TableCell className={"text-center"}><Input className={"w-36"} /></TableCell> */}
+                  <TableCell className={"text-center"}>{invoice.Batch}</TableCell>
                   <TableCell className={"text-center"}><Input type={"date"} className={"w-36"}/></TableCell>
-                  <TableCell className={"text-center"}></TableCell>
+                  <TableCell className={"text-center"}><CurrencyRupeeIcon />{invoice.mrp}</TableCell>
                   <TableCell className={"text-center"}><Input className={"w-36"} /></TableCell>
                   <TableCell className={"text-center"}><Input className={"w-36"}/></TableCell>
                   <TableCell className="text-right">
