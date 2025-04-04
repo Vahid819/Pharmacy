@@ -41,7 +41,11 @@ const invoices = [
 
 function page() {
   
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState(invoices.map((amounts)=> amounts.totalAmount));
+  let total = 0;
+  amount.map((amounts) => {
+    total += amounts;
+  });
 
   return (
     <div>
@@ -90,7 +94,7 @@ function page() {
             <TableFooter>
               <TableRow>
                 <TableCell colSpan={7}>Total</TableCell>
-                <TableCell className="text-right"><CurrencyRupeeIcon />5000</TableCell>
+                <TableCell className="text-right"><CurrencyRupeeIcon />{total}</TableCell>
               </TableRow>
             </TableFooter>
           </Table>
