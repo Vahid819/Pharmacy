@@ -47,7 +47,7 @@ export function CalendarForm() {
           name="dob"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Bill Date</FormLabel>
+              {/* <FormLabel>Bill Date</FormLabel> */}
               <Popover>
                 <PopoverTrigger asChild>
                   <FormControl>
@@ -72,9 +72,9 @@ export function CalendarForm() {
                     mode="single"
                     selected={date}
                     onSelect={setDate}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
+                    // disabled={(date) =>
+                    //   date > new Date() || date < new Date("1900-01-01")
+                    // }
                     initialFocus
                   />
                 </PopoverContent>

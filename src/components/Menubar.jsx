@@ -1,16 +1,8 @@
 import {
   Menubar,
-  MenubarCheckboxItem,
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import Link from "next/link";
@@ -20,7 +12,7 @@ export function MenubarDemo() {
     <Menubar>
       {/* Sales menu */}
       <MenubarMenu className="mx-10">
-        <Link href={"/Sales"}><MenubarTrigger>Sale</MenubarTrigger></Link>
+       <MenubarTrigger >Sale</MenubarTrigger>
         <MenubarContent className={"flex md:w-32 justify-around flex-wrap"}>
           <Link href={"/Sales/Sale"}>
             <MenubarItem>Sales</MenubarItem>
@@ -40,7 +32,7 @@ export function MenubarDemo() {
       </MenubarMenu>
       {/* Purchases menu */}
       <MenubarMenu className="mx-10">
-        <Link href={"/Purchases"}><MenubarTrigger>Purchase</MenubarTrigger></Link>
+        <MenubarTrigger>Purchase</MenubarTrigger>
         <MenubarContent className={"flex md:w-32 justify-around flex-wrap"}>
           <Link href={"/Purchases/Purchase"}>
           <MenubarItem>
