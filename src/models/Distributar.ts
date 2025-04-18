@@ -5,6 +5,7 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface Distributor extends Document {
     fname: string;
     lname: string;
+    company:string;
     email: string;
     phone: string;
     address: string;
@@ -26,6 +27,11 @@ const DistributorSchema: Schema<Distributor> = new Schema({
         required: [true, "Last name is required"],
         trim: true,
         minLength: [3, "Last name must be at least 3 characters long"],
+    },
+    company:{
+        type: String,
+        required: [true, "Please enter company name"],
+        trim: true,
     },
     email: {
         type: String,
@@ -61,7 +67,7 @@ const DistributorSchema: Schema<Distributor> = new Schema({
     postalCode: {
         type: String,
         required: [true, "Postal code is required"],
-        minLength: [5, "Postal code must be at least 5 characters long"],
+        minLength: [6, "Postal code must be at least 5 characters long"],
     },
 },
     {
@@ -71,3 +77,9 @@ const DistributorSchema: Schema<Distributor> = new Schema({
 
 const DistributorModel = (mongoose.models.DistributarSchema as mongoose.Model<Distributor>) || mongoose.model<Distributor>("Distributar", DistributorSchema); 
 export default DistributorModel;
+
+
+
+
+
+

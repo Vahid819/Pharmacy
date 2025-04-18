@@ -1,8 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 
-
-
 export interface User extends Document {
     username: string;
     password: string;
@@ -13,7 +11,6 @@ export interface User extends Document {
     isVerified: boolean;
     createdAt: Date;
     updatedAt: Date;
-
 
 }
 

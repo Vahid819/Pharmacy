@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 
 type ConnectionObject = {
-    isConnected?: number | null;
+    isConnected?: number;
 }
 
 const connection : ConnectionObject = {
 }
-
 
 async function dbConnect(): Promise<void> {
     if(connection.isConnected){
@@ -22,7 +21,6 @@ async function dbConnect(): Promise<void> {
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
         process.exit(1)
-        
     }
 }
 
