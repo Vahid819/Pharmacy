@@ -1,24 +1,25 @@
 import mongoose from "mongoose";
-let connection = null | global;
-const dbConnection = async () => {
+
+export const connectDB = async () => {
   try {
-    if (connection) {
-      console.log("database already connected");
+    if (mongoose.connection.readyState === 1) {
+      console.log("Already connected to the database");
       return;
     }
-    const url = process.env.MONGODB_URL;
-
-    if (!url) {
-      console.log("please provide the mongodb url ");
-      return;
+    const dbURI = process.env.MONGODB_URL;
+    if (!dbURI) {
+      throw new Error("Database URI not found in environment variables");
     }
 
-    connection = await mongoose.connect(url);
-
-    console.log("database connected succesfully");
+    await mongoose.connect(dbURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to the database successfully");
+    
   } catch (error) {
-    console.log(error.messsage);
+    console.error("Database connection error:", error);
+    throw new Error("Database connection failed");
+    
   }
 };
-
-export default dbConnection;
