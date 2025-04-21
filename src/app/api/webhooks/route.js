@@ -1,12 +1,12 @@
 import { Webhook } from "svix";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import dbConnection from "@/lib/dbConnection";
+import connectDB from "@/lib/dbConnection";
 import userModel from "@/models/User";
 
 export async function POST(req) {
     try {
-        await dbConnection();
+        await connectDB();
 
         const SIGNING_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
