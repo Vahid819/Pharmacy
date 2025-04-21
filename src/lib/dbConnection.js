@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const connectDB = async () => {
+ const connectDB = async () => {
   try {
     if (mongoose.connection.readyState === 1) {
       console.log("Already connected to the database");
@@ -11,10 +11,7 @@ export const connectDB = async () => {
       throw new Error("Database URI not found in environment variables");
     }
 
-    await mongoose.connect(dbURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(dbURI);
     console.log("Connected to the database successfully");
     
   } catch (error) {
@@ -24,3 +21,4 @@ export const connectDB = async () => {
   }
 };
 
+export default connectDB;
