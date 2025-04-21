@@ -1,4 +1,4 @@
-import Webhook from "svix";
+import {Webhook} from "svix";
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import dbConnection from "@/lib/dbConnection";
@@ -19,8 +19,7 @@ export async function POST(req) {
 
     const wh = new Webhook(SIGNING_SECRET);
 
-    const headerpayload = await headers();
-    yload.get("payload");
+    const headerpayload = await headers();  
     const svix_id = headerpayload.get("svix-id");
     const svix_signature = headerpayload.get("svix-signature");
     const svix_timestamp = headerpayload.get("svix-timestamp");
@@ -36,9 +35,9 @@ export async function POST(req) {
 
     try {
       evt = wh.verify(body, {
-        "svix-id": svix_id,
-        "svix-timestamp": svix_signature,
-        "svix-signature": svix_timestamp,
+        'svix-id': svix_id,
+        'svix-signature': svix_signature,
+        'svix-timestamp': svix_timestamp,
       });
     } catch (error) {
       return NextResponse.json({ message: "Invalid payload" }, { status: 400 });
