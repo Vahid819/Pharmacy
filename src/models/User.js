@@ -3,7 +3,7 @@ import validator, { trim } from 'validator';
 
 
 const userSchema = new Schema({
-    userId:{
+    clerkId:{
         type: String,
         required: true
     },
@@ -30,6 +30,11 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true,
         validator: [validator.isEmail, "Please enter valid email address"]
+    },
+    image:{
+        type: String,
+        trim: true,
+        default: ""
     },
     role:{
         type: String,

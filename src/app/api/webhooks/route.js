@@ -1,52 +1,84 @@
-import { Webhook } from "svix";
+import Webhook from "svix";
+import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import dbConnection from "@/lib/dbConnection";
 import userModel from "@/models/User";
-import { verifyWebhook } from "@clerk/nextjs/webhooks";
 
 export async function POST(req) {
   try {
     await dbConnection();
-    const payload = await req.text();
-    const headers = {
-      "svix-id": req.headers.get("svix-id"),
-      "svix-timestamp": req.headers.get("svix-timestamp"),
-      "svix-signature": req.headers.get("svix-signature"),
-    };
 
-    const wh = new Webhook(process.env.CLERK_WEBHOOK_SIGNING_SECRET);
+    const SIGNING_SECRET = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
-    let evt;
-    try {
-      evt = wh.verify(payload, headers);
-    } catch (err) {
-      return new Response("Invalid webhook", { status: 400 });
+    if (!SIGNING_SECRET) {
+      return NextResponse.json(
+        { message: "SIGNING_SECRET not found" },
+        { status: 500 }
+      );
     }
 
-    const { frist_name, last_name, email_addresses, id } = evt.data;
+    const wh = new Webhook(SIGNING_SECRET);
+
+    const headerpayload = await headers();
+    yload.get("payload");
+    const svix_id = headerpayload.get("svix-id");
+    const svix_signature = headerpayload.get("svix-signature");
+    const svix_timestamp = headerpayload.get("svix-timestamp");
+
+    if (!svix_id || !svix_signature || !svix_timestamp) {
+      return NextResponse.json({ message: "Missing headers" }, { status: 400 });
+    }
+
+    const payload = await req.json();
+    const body = JSON.stringify(payload);
+
+    let evt;
+
+    try {
+      evt = wh.verify(body, {
+        "svix-id": svix_id,
+        "svix-timestamp": svix_signature,
+        "svix-signature": svix_timestamp,
+      });
+    } catch (error) {
+      return NextResponse.json({ message: "Invalid payload" }, { status: 400 });
+    }
+
+    const { id, first_name, last_name, username, email_addresses, image_url } =
+      evt.data;
     const eventType = evt.type;
 
     if (eventType === "user.created") {
-      const user = await userModel.findOne({ email: evt.data.email });
-
+      const user = await userModel.findOne({ email: email_addresses[0].email });
       if (!user) {
-        const newuser = new userModel({
-          frist_name: frist_name,
-          last_name: last_name,
-          email_adress: email_addresses,
-          userId: id,
+        const newUser = await userModel.create({
+          clerkId: id,
+          fristname: first_name,
+          lastname: last_name,
+          username: username,
+          email: email_addresses[0].email,
+          image: image_url,
         });
-        await newuser.save();
-        console.log("data will stored in database");
+
+        await newUser.save();
+        return NextResponse.json(
+          { message: "User created successfully" },
+          { status: 201 }
+        );
       }
-    } else {    
+    } else {
       console.log("Unknown event type:", evt.type);
     }
 
-    // your event handling logic here
-    return new Response("OK", { status: 200 });
+    return NextResponse.json(
+      { message: "Event processed successfully" },
+      { status: 200 }
+    );
   } catch (error) {
-    console.log(error.message);
-    return new Response("Error: Webhook error", { status: 500 });
+    console.log(error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
