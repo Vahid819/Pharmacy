@@ -52,7 +52,7 @@ export async function POST(req) {
     const { first_name, last_name, username, email_addresses, verification, id } =
       evt.data;
     const email = email_addresses[0].email_address;
-    const isverified = verification?.status === "verified" ? true : false;
+    const isverified = email.verification?.status === "verified" ? true : false;
     console.log("isverified", isverified);
     const eventType = evt.type;
 
@@ -65,14 +65,13 @@ export async function POST(req) {
           lastname: last_name,
           email: email,
           username: username,
-          isverified: isverified
+          isverified: email.verification?.status === "verified" ? true : false,
         });
         await newUser.save();
       }
     } else {
       console.log("Event type not handled:", eventType);
-    }
-    console.log("Webhook event processed successfully:", evt);
+    };
     return NextResponse.json(
       { message: "Webhook processed successfully" },
       { status: 200 }
