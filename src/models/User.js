@@ -7,7 +7,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    fristname:{
+    firstname:{
         type: String,
         required: true,
         trim: true,

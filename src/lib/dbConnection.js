@@ -1,24 +1,24 @@
 import mongoose from "mongoose";
 
- const connectDB = async () => {
+const dbConnection = async () => {
   try {
-    if (mongoose.connection.readyState === 1) {
-      console.log("Already connected to the database");
+    if (mongoose.connection.readyState >= 1) {
+      console.log("MongoDB is already connected");
       return;
     }
-    const dbURI = process.env.MONGODB_URL;
-    if (!dbURI) {
-      throw new Error("Database URI not found in environment variables");
+
+    const dburl = process.env.MONGODB_URL;
+
+    if (!dburl) {
+      throw new Error("MongoDB URL is not defined in environment variables");
     }
 
-    await mongoose.connect(dbURI);
-    console.log("Connected to the database successfully");
-    
+    await mongoose.connect(process.env.MONGODB_URL);
+    console.log("MongoDB connected successfully");
   } catch (error) {
-    console.error("Database connection error:", error);
-    throw new Error("Database connection failed");
-    
+    console.error("MongoDB connection error:", error);
+    throw new Error("MongoDB connection failed");
   }
 };
 
-export default connectDB;
+export default dbConnection
