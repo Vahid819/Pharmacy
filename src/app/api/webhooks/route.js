@@ -31,7 +31,7 @@ export async function POST(req) {
       );
     }
 
-    const body = await req.text(); // 🔥 RAW body required for signature validation
+    const body = await req.text();
 
     let evt;
 
@@ -72,6 +72,7 @@ export async function POST(req) {
     } else {
       console.log("Event type not handled:", eventType);
     }
+    console.log("Webhook event processed successfully:", evt);
     return NextResponse.json(
       { message: "Webhook processed successfully" },
       { status: 200 }
