@@ -1,9 +1,11 @@
+import Link from 'next/link'
 import React from 'react'
 
 function page() {
   return (
     <div>
-      This is landing page
+      <Link href={"/sign-in"}>Sign In</Link>
+      <Link href={"/sign-up"}>Sign Up</Link>
     </div>
   )
 }
