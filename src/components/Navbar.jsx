@@ -4,8 +4,8 @@ import React from "react";
 import { UserButton } from "@clerk/nextjs";
 import { useUser } from "@clerk/nextjs";
 import { Menubar, MenubarTrigger, MenubarMenu } from "@/components/ui/menubar";
-import { Menu } from "@radix-ui/react-menubar";
 import { Button } from "@/components/ui/button";
+import {ArrowRight} from 'lucide-react'
 
 function Navbar(props) {
   const { isSignedIn } = useUser();
@@ -58,7 +58,7 @@ function Navbar(props) {
       </div>
 
       {isSignedIn ? (
-        <div>{!isLoaded ? <p>Loadding....</p> : <div className="flex justify-center items-center gap-2"><UserButton /> <Link href={`/Dashboard/Users/${userId}`}><Button>Dashbord</Button></Link></div>}</div>
+        <div>{!isLoaded ? <p>Loadding....</p> : <div className="flex justify-center items-center gap-2"><UserButton /> <Link href={`/Dashboard/Users/${userId}`}><Button className={"border-2 border-indigo-500 p-2 px-4 rounded-xl hover:bg-white hover:text-black"}>Dashbord<ArrowRight /></Button></Link></div>}</div>
       ) : (
         <div>
           {!isLoaded ? (
@@ -86,7 +86,3 @@ function Navbar(props) {
 }
 
 export default Navbar;
-
-
-
-{/*  */}

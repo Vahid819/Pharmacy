@@ -16,8 +16,6 @@ async function Page({params}) {
   
   return (
     <div>
-      This is the user page {users}
-      <Link href={`/Dashboard/Users/${users}/Profile`}>My Profile</Link>
     </div>
   )
 }

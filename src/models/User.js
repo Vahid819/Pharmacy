@@ -41,10 +41,6 @@ const userSchema = new Schema({
         enum: ["admin", "owner", "staff"],
         default: "staff",
     },
-    bio:{
-        type: String,
-        default: ""
-    },
     contact:{
         type: String,
         trim: true,
