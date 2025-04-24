@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/form'
 
 async function Page({params}) {
-  const { users} = await params
+  const { users } = await params
   
   return (
     <div>
