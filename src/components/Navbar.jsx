@@ -6,6 +6,7 @@ import { useUser } from "@clerk/nextjs";
 import { Menubar, MenubarTrigger, MenubarMenu } from "@/components/ui/menubar";
 import { Button } from "@/components/ui/button";
 import {ArrowRight} from 'lucide-react'
+import { ModeToggle } from "./Theme";
 
 function Navbar(props) {
   const { isSignedIn } = useUser();
