@@ -22,7 +22,7 @@ async function DashboardNavbar() {
   // const bycrept_id = bcrypt.hash(userId,10)
   return (
     <div>
-      <div className="flex items-center justify-between p-4 shadow-md">
+      <div className="flex items-center justify-around p-4 shadow-md">
         <div>
           <Link href={`/Dashboard/Users/${userId}`}>
             <Home />
