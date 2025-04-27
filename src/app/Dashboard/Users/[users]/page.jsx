@@ -1,24 +1,24 @@
 import Link from "next/link";
 import React from "react";
-import { Menubar,
+import {
+  Menubar,
   MenubarContent,
   MenubarMenu,
   MenubarTrigger,
- } from "@/components/ui/menubar";
- import {
-   Card,
-   CardContent,
-   CardDescription,
-   CardFooter,
-   CardHeader,
-   CardTitle,
- } from "./ui/card";
+} from "@/components/ui/menubar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import ComboboxDemo from "@/components/Combobox";
 import { Input } from "@/components/ui/input";
-import { IndianRupee, CreditCard, Plus, User } from "lucide-react"
-import { Component } from "@/components/DataChar"
-
+import { IndianRupee, CreditCard, Plus, User } from "lucide-react";
+import { Component } from "@/components/DataChar";
 
 async function Page({ params }) {
   const { users } = await params;
@@ -32,9 +32,7 @@ async function Page({ params }) {
         <div>
           <Menubar>
             <MenubarMenu>
-              <MenubarTrigger>
-                Overview
-              </MenubarTrigger>
+              <MenubarTrigger>Overview</MenubarTrigger>
             </MenubarMenu>
             <MenubarMenu>
               <MenubarTrigger>Customer</MenubarTrigger>
@@ -54,36 +52,47 @@ async function Page({ params }) {
       </div>
       <Separator className="my-2 w-full mx-0" />
       <div className="flex w-auto flex-wrap h-auto gap-2 items-center justify-around">
-        <div className="flex flex-col flex-wrap w-80 h-auto border p-4 gap-3 rounded-lg shadow-lg">
-          <div className="flex items-center justify-between text-2xl">
-            <h1>Total Revenue</h1>
-            <p><IndianRupee /></p>
-          </div>
-          <div className="flex flex-col">
-            <h2 className="text-xl flex items-center"><IndianRupee size={"20"}/> 450,000.00</h2> 
-            <h2 className="text-sm text-gray-400">+21.04% from last month</h2>
-          </div>
-        </div>
-        <div className="flex flex-col flex-wrap w-80 h-auto border p-4 gap-3 rounded-lg shadow-lg">
-          <div className="flex items-center justify-between text-2xl">
+        <Card className={"w-80"}>
+          <CardHeader className="flex items-center justify-between text-2xl">
+            <CardTitle className={"flex items-center justify-between w-full"}>
+              <h1>Total Revenue</h1>
+              <IndianRupee size={"20"} />
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <h2 className="flex text-xl items-center">
+              <IndianRupee size={20} />
+              45000.00
+            </h2>
+            <h2 className="text-sm text-gray-400">+21.04% form last month</h2>
+          </CardContent>
+        </Card>
+        <Card className={"w-80"}>
+          <CardHeader className="flex items-center justify-between text-2xl">
+            <CardTitle className={"flex items-center justify-between w-full"}>
             <h1>Total Sale</h1>
-            <CreditCard />
-          </div>
-          <div>
-            <h2 className="text-xl flex items-center"><Plus size={20} /> 12,234</h2>
+            <CreditCard size={20}/>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <h2 className="text-xl flex items-center">
+              <Plus size={20} /> 12,234
+            </h2>
             <h2 className="text-sm text-gray-400">+19% from last month</h2>
-          </div>
-        </div>
-        <div className="flex flex-col flex-wrap w-80 h-auto border p-4 gap-3 rounded-lg shadow-lg">
-          <div className="flex items-center justify-between text-2xl">
+          </CardContent>
+        </Card>
+        <Card className={"w-80"}>
+          <CardHeader className="flex items-center justify-between text-2xl">
+            <CardTitle className={"flex items-center justify-between w-full"}>
             <h1>Active Staff</h1>
-            <User />
-          </div>
-          <div>
+            <User size={20}/>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
             <h2 className="text-xl flex items-center">Active</h2>
             <h2 className="text-sm text-gray-400">+201 since last hour</h2>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
         <div className="flex h-auto border p-4 rounded-lg shadow-lg">
           <Component />
         </div>
