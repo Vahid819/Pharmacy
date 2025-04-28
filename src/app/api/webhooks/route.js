@@ -53,7 +53,7 @@ export async function POST(req) {
       evt.data;
     const email = email_addresses[0].email_address;
     const isverified = email.verification?.status === "verified" ? true : false;
-    console.log("isverified", isverified);
+    // console.log("isverified", isverified);
     const eventType = evt.type;
 
     if (eventType === "user.created") {

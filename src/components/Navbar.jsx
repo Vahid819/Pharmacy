@@ -12,7 +12,7 @@ function Navbar(props) {
   const { isSignedIn } = useUser();
   const { isLoaded } = useUser();
   const userId  = props.userid;
-  console.log(userId);
+  // console.log(userId);
   
   return (
     <div className="flex justify-around items-center p-4 bg-gray-800 text-white">

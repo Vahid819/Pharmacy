@@ -4,7 +4,7 @@ import {auth} from "@clerk/nextjs/server";
 
 export default async function LandingLayout({ children }) {
   const { userId } = await auth();
-  console.log("userId:", userId); // Debug here
+  // console.log("userId:", userId); // Debug here
 
   return (
     <div>
