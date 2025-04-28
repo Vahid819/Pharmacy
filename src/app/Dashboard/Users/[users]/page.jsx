@@ -1,12 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import {
-  Menubar,
-  MenubarContent,
-  MenubarMenu,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import {
   Card,
   CardContent,
   CardDescription,
@@ -15,42 +9,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import ComboboxDemo from "@/components/Combobox";
 import { Input } from "@/components/ui/input";
 import { IndianRupee, CreditCard, Plus, User } from "lucide-react";
 import { Component } from "@/components/DataChar";
+
 
 async function Page({ params }) {
   const { users } = await params;
 
   return (
     <div className="flex flex-col h-auto w-auto border-2 mx-6 my-1 rounded-lg shadow-lg p-4">
-      <div className="flex w-full items-center justify-around">
-        <div>
-          <ComboboxDemo />
-        </div>
-        <div>
-          <Menubar>
-            <MenubarMenu>
-              <MenubarTrigger>Overview</MenubarTrigger>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>Customer</MenubarTrigger>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>Products</MenubarTrigger>
-            </MenubarMenu>
-            <MenubarMenu>
-              <MenubarTrigger>Setting</MenubarTrigger>
-            </MenubarMenu>
-          </Menubar>
-        </div>
-        <div>
-          <Input placeholder="Search..." className="w-80" />
-        </div>
-        {/* <div></div> */}
-      </div>
-      <Separator className="my-2 w-full mx-0" />
+      {/* <Separator className="my-2 w-full mx-0" /> */}
       <div className="flex w-auto flex-wrap h-auto gap-2 items-center justify-around">
         <Card className={"w-80"}>
           <CardHeader className="flex items-center justify-between text-2xl">

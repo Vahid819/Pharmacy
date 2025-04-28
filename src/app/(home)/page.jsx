@@ -6,13 +6,15 @@ function page() {
   const [data, setData] = useState('Loadding....')
 
   useEffect(()=>{
-    fetch('/api/About')
+    fetch('/api/Admin/Staffdata')
     .then(res => {
       if(!res.ok) throw new Error('Network response was not ok')
       return res.json()
     })
-    .then(data => setData(data.message))
-    .catch(err => setData(err.message))
+    .then(data => {setData(data.name); console.log(data.name)})
+    .catch(err => {setData(err.message); console.log(err.message)})
+
+    console.log(data)
   },[])
 
   return (

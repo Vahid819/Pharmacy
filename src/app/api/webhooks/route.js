@@ -49,7 +49,7 @@ export async function POST(req) {
       );
     }
 
-    const { first_name, last_name, username, email_addresses, verification, id } =
+    const { first_name, last_name, username, email_addresses, verification, id, image_url } =
       evt.data;
     const email = email_addresses[0].email_address;
     const isverified = email.verification?.status === "verified" ? true : false;
@@ -63,8 +63,9 @@ export async function POST(req) {
           clerkId: id,
           firstname: first_name,
           lastname: last_name,
-          email: email,
           username: username,
+          email: email,
+          image: image_url,
           isverified: email.verification?.status === "verified" ? true : false,
         });
         await newUser.save();
