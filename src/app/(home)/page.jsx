@@ -11,7 +11,7 @@ function page() {
       if(!res.ok) throw new Error('Network response was not ok')
       return res.json()
     })
-    .then(data => {setData(data.name); console.log(data.name)})
+    .then(data => {setData(data.name)})
     .catch(err => {setData(err.message); console.log(err.message)})
 
     console.log(data)

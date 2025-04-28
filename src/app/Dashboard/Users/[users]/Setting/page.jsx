@@ -3,7 +3,7 @@ import React from 'react'
 function page() {
   return (
     <div>
-      This is the Customer page of the user
+        This is the setting page of the user
     </div>
   )
 }

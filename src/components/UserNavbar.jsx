@@ -33,10 +33,10 @@ async function UserNavbar({ userId }) {
             </Link>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>Products</MenubarTrigger>
+            <Link href={`/Dashboard/Users/${userId}/Products`}><MenubarTrigger>Products</MenubarTrigger></Link>
           </MenubarMenu>
           <MenubarMenu>
-            <MenubarTrigger>Setting</MenubarTrigger>
+            <Link href={`/Dashboard/Users/${userId}/Setting`}><MenubarTrigger>Setting</MenubarTrigger></Link>
           </MenubarMenu>
         </Menubar>
       </div>
