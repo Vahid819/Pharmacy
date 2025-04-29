@@ -10,11 +10,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning={true}>
         <body
-          data-new-gr-c-s-check-loaded="14.1232.0"
-          data-gr-ext-installed=""
           cz-shortcut-listen="true"
+          data-new-gr-c-s-check-loaded="14.1233.0"
+          data-gr-ext-installed=""
         >
           <ThemeProvider
             attribute="class"

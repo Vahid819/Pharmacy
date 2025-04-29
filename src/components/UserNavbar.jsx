@@ -28,8 +28,8 @@ async function UserNavbar({ userId }) {
             </Link>
           </MenubarMenu>
           <MenubarMenu>
-            <Link href={`/Dashboard/Users/${userId}/Customer`}>
-              <MenubarTrigger>Customer</MenubarTrigger>
+            <Link href={`/Dashboard/Users/${userId}/Distributar`}>
+              <MenubarTrigger>Distributar</MenubarTrigger>
             </Link>
           </MenubarMenu>
           <MenubarMenu>
@@ -37,7 +37,7 @@ async function UserNavbar({ userId }) {
           </MenubarMenu>
           <MenubarMenu>
             <Link href={`/Dashboard/Users/${userId}/Setting`}><MenubarTrigger>Setting</MenubarTrigger></Link>
-          </MenubarMenu>
+          </MenubarMenu> 
         </Menubar>
       </div>
 
