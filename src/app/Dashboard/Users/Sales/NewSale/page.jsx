@@ -63,7 +63,7 @@ function NewSale() {
     const sendData = async()=>{
       try {
         const form = new FormData()
-        form.append("customerName", data.customerName)
+        form("customerName", data.customerName)
         form.append("customerContact", data.customerContact)
         form.append("productPrice", data.productPrice)
         form.append("quantity", data.quantity)

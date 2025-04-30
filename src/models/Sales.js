@@ -80,3 +80,8 @@ const salesSchema = new mongoose.Schema({
 },{
     timestamps:true
 })
+
+
+const newSale = (mongoose.models.sales)||mongoose.model('sales',salesSchema)
+
+export default newSale;
