@@ -1,35 +1,61 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
+export default function useFetch() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-export default function useFeatch(){
-    const [data, setData] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
+  const fetchData = useCallback(async (options) => {
+    const { url, method = "GET", body, headers = {}, queryParams } = options;
+    
+    setLoading(true);
+    setError(null);
+    
+    try {
+      // Construct URL with query parameters
+      const urlObj = new URL(url);
+      if (queryParams) {
+        Object.entries(queryParams).forEach(([key, value]) => {
+          urlObj.searchParams.append(key, value);
+        });
+      }
 
-    const fetchData = async({url, method = "GET", body = null })=>{
-        setLoading(true);
-        try {
-            const res = await fetch(url,{
-                method
-            })
-            const result = await res.json()
+      const config = {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          ...headers,
+        },
+        body: method !== "GET" && body ? JSON.stringify(body) : undefined,
+      };
 
-            if(result.success){
-                setData(result);
-            }else{
-                setError(result.message)
-            }
-            setLoading(false)
+      const response = await fetch(urlObj.toString(), config);
 
-        } catch (error) {
-            setError(error.message)
-            setLoading(false)
-        }
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message || "An unknown error occurred");
+      setData(null);
+    } finally {
+      setLoading(false);
     }
-    return{
-        data, 
-        loading,
-        error,
-        fetchData
-    }
+  }, []);
+
+  const reset = useCallback(() => {
+    setData(null);
+    setError(null);
+    setLoading(false);
+  }, []);
+
+  return {
+    data,
+    loading,
+    error,
+    fetchData,
+    reset,
+  };
 }
