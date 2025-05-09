@@ -27,7 +27,7 @@ export async function GET(request) {
     const currentStaff = await userModel.findOne({
       clerkId: userId,
       role: "staff"
-    }).select("firstname lastname role");
+    }).select("firstname lastname");
 
     if (!currentStaff) {
       return NextResponse.json(
@@ -35,26 +35,14 @@ export async function GET(request) {
         { status: 403 }
       );
     }
-
-    // 4. Get total staff count (optimized to run in parallel)
-    const [totalStaff] = await Promise.all([
-      userModel.countDocuments({ role: "staff" }),
-      // Add other parallel queries here if needed
-    ]);
-
-    // 5. Prepare response data
-    const responseData = {
-      currentStaff: {
+     const currentStaffdata = {
         firstName: currentStaff.firstname,
         lastName: currentStaff.lastname,
-        role: currentStaff.role
-      },
-      totalStaff,
-      timestamp: new Date().toISOString()
-    };
+      }
 
-    // 6. Return successful response
-    return NextResponse.json(responseData, { status: 200 });
+
+      console.log(currentStaffdata)
+    return NextResponse.json(currentStaffdata, { status: 200 });
 
   } catch (error) {
     console.error("Staff API Error:", error);

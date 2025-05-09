@@ -1,36 +1,48 @@
-  'use client'
-  import React, { useState, useEffect } from 'react'
+'use client'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 
-  function Page() {
-    const [data, setData] = useState({ firstName: 'Loading...', lastName: 'Loading...' });
-    const [count, setCount] = useState('Loading...');
+function Page() {
+  const [data, setData] = useState({ 
+    firstname: 'Loading...', 
+    lastname: 'Loading...' 
+  });
+  const [error, setError] = useState(null);
 
-    useEffect(() => {
-      fetch('/api/Admin/Staffdata')
-      .then((response)=>{
-        if(!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data)=>{
-        setData(data.Info);
-        setCount(data.Count);
-      }) 
-      .catch((error)=>{
-        console.error('Error fetching data:', error);
-        setData({ firstname: 'Error', lastname: 'Error' });
-        setCount('Error');
-      })
+  useEffect(() => {
+    axios.get('/api/Admin/Staffdata')
+      .then((response) => {
+        // More flexible response handling
+        const apiData = response.data?.currentStaffdata || response.data;
         
-    }, []);
+        if (apiData && (apiData.firstname || apiData.firstName)) {
+          setData({
+            firstname: apiData.firstname || apiData.firstName, // handles both cases
+            lastname: apiData.lastname || apiData.lastName
+          });
+        } else {
+          throw new Error('API data format not recognized');
+        }
+      }) 
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setError(error.message);
+        setData({ 
+          firstname: 'Error', 
+          lastname: 'Error' 
+        });
+      });
+  }, []);
 
-    return (
-      <div>
-        <p>API says: "{data.firstname}", "{data.lastname}"</p>
-        <p>Total number of staff: "{count}"</p>
-      </div>
-    );
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
-  export default Page;
+  return (
+    <div>
+      <p>API says: "{data.firstname}", "{data.lastname}"</p>
+    </div>
+  );
+}
+
+export default Page;
