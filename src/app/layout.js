@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <html lang="en" suppressHydrationWarning={true}>
         <body
           cz-shortcut-listen="true"
-          data-new-gr-c-s-check-loaded="14.1234.0"
+         data-new-gr-c-s-check-loaded="14.1235.0"
           data-gr-ext-installed=""
         >
           <ThemeProvider
