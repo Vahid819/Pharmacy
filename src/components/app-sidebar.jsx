@@ -1,6 +1,6 @@
-import { Home, Tag, LayoutList, ShoppingBag, Settings } from "lucide-react"
-
-
+import { Home, Tag, LayoutList, ShoppingBag, Settings } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
+import { ModeToggle } from "@/components/Theme";
 import {
   Sidebar,
   SidebarContent,
@@ -10,8 +10,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarFooter
-} from "@/components/ui/sidebar"
+  SidebarFooter,
+} from "@/components/ui/sidebar";
 
 // Menu items.
 const items = [
@@ -36,12 +36,12 @@ const items = [
     title: "Settings",
     icon: Settings,
   },
-]
+];
 
 export function AppSidebar() {
   return (
-    <Sidebar variant="sidebar | floating | inset" >
-      <SidebarContent>
+    <Sidebar variant="floating" collapsible="icon">
+      <SidebarContent>  
         <SidebarGroup>
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -61,8 +61,11 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        Hello world
+        <div className="flex flex-wrap justify-around items-center gap-2">
+          <ModeToggle />
+          <UserButton />
+        </div>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

@@ -3,6 +3,7 @@ import {
   Sidebar,
   SidebarProvider,
   SidebarTrigger,
+  SidebarInset,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
@@ -16,11 +17,12 @@ export default function DashboardLayout({ children }) {
   // console.log("User ID:", userId)
   return (
     <SidebarProvider>
+      <Sidebar variant="floating" />
       <AppSidebar />
-      <main className="w-full">
-        <SidebarTrigger />
-        {children}
-      </main >
+        <main className="w-full">
+          <SidebarTrigger />
+          {children}
+        </main> 
     </SidebarProvider>
   );
 }
