@@ -8,6 +8,10 @@ function useProductStorage(initialProducts = []) {
         setProducts(prev => [...prev, product])
     }
 
+    const removeProduct = (index) => {
+        setProducts(prev => prev.filter((_, i) => i !== index))
+    }
+
     const clearProducts = () => {
         setProducts([])
     }
@@ -15,6 +19,7 @@ function useProductStorage(initialProducts = []) {
     return {
         products,
         addProduct,
+        removeProduct, // ✅ Exporting this
         clearProducts
     }
 }
