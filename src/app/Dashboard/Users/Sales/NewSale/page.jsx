@@ -29,7 +29,8 @@ import useProductStorage from "@/Hooks/localstorage";
 
 function NewSale() {
   const { data, loading, error, fetchData } = useFeatch("/api/Admin/Staffdata");
-  const { products, addProduct, clearProducts, removeProduct } = useProductStorage();
+  const { products, addProduct, clearProducts, removeProduct } =
+    useProductStorage();
   const router = useRouter();
 
   const form = useForm({
@@ -66,32 +67,44 @@ function NewSale() {
     form.resetField("productPrice");
     form.resetField("quantity");
   };
+ const onSubmit = async (formData) => {
+  try {
+    const saleData = {
+      salername: formData.staff, // assuming 'staff' is staff name
+      contact: formData.customerContact,
+      paymentMethod: formData.paymentMethod, // double-check enum in your Mongoose schema
+      paymentStatus: formData.paymentStatus,
+      saleDate: formData.saleDate,
+      discount: formData.discount,
+      totalamount: totalAmount - formData.discount, // use lowercase
+      totalproduct: products.reduce((acc, p) => acc + p.quantity, 0),
+      products, // already an array of products
+    };
 
-  const onSubmit = async (formData) => {
-    try {
-      const saleData = {
-        ...formData,
-        products,
-        totalAmount: totalAmount - formData.discount,
-      };
+    console.log("Submitting saleData:", saleData);
 
-      await fetchData({
-        url: "/api/Sale/newSale",
-        method: "POST",
-        body: JSON.stringify(saleData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    const res = await fetch("/api/Admin/Sales", {
+      method: "POST",
+      body: JSON.stringify(saleData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (!error) {
-        clearProducts();
-        router.push("/sales");
-      }
-    } catch (err) {
-      console.error("Sale submission failed:", err);
+    if (res.ok) {
+      clearProducts();
+      form.reset();
+      router.push("/Dashboard/Users/Sales/Sale");
+    } else {
+      const errorRes = await res.json();
+      console.error("API Error:", errorRes);
     }
-  };
+  } catch (err) {
+    console.error("Sale submission failed:", err);
+  }
+};
+
+
 
   return (
     <div className="w-[95%] mx-auto mt-3 border rounded-lg h-auto shadow-md p-2">
@@ -108,7 +121,11 @@ function NewSale() {
                     <FormItem>
                       <FormLabel>Customer Name</FormLabel>
                       <FormControl>
-                        <Input className="w-56" placeholder="Customer Name" {...field} />
+                        <Input
+                          className="w-56"
+                          placeholder="Customer Name"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -121,7 +138,11 @@ function NewSale() {
                     <FormItem>
                       <FormLabel>Contact</FormLabel>
                       <FormControl>
-                        <Input className="w-56" placeholder="Contact No" {...field} />
+                        <Input
+                          className="w-56"
+                          placeholder="Contact No"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -133,7 +154,10 @@ function NewSale() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Payment Method</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger className="w-28">
                             <SelectValue placeholder="Select payment method" />
@@ -141,9 +165,13 @@ function NewSale() {
                         </FormControl>
                         <SelectContent>
                           <SelectItem value="cash">Cash</SelectItem>
-                          <SelectItem value="credit_card">Credit Card</SelectItem>
+                          <SelectItem value="credit_card">
+                            Credit Card
+                          </SelectItem>
                           <SelectItem value="debit_card">Debit Card</SelectItem>
-                          <SelectItem value="mobile_payment">Mobile Payment</SelectItem>
+                          <SelectItem value="mobile_payment">
+                            Mobile Payment
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -156,7 +184,10 @@ function NewSale() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Payment Status</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Select payment status" />
@@ -178,7 +209,12 @@ function NewSale() {
                     <FormItem>
                       <FormLabel>Discount</FormLabel>
                       <FormControl>
-                        <Input className="w-20" type="number" placeholder="Discount" {...field} />
+                        <Input
+                          className="w-20"
+                          type="number"
+                          placeholder="Discount"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -249,14 +285,22 @@ function NewSale() {
                       <FormItem>
                         <FormLabel>Quantity</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="Quantity" {...field} />
+                          <Input
+                            type="number"
+                            placeholder="Quantity"
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
                 </div>
-                <Button type="button" onClick={handleAddProduct} className="mt-4">
+                <Button
+                  type="button"
+                  onClick={handleAddProduct}
+                  className="mt-4"
+                >
                   Add Product
                 </Button>
               </div>
@@ -267,9 +311,14 @@ function NewSale() {
                   <h3 className="font-medium mb-2">Products Added</h3>
                   <ul className="divide-y">
                     {products.map((product, index) => (
-                      <li key={index} className="py-2 flex justify-between items-center gap-4">
+                      <li
+                        key={index}
+                        className="py-2 flex justify-between items-center gap-4"
+                      >
                         <div className="flex flex-col">
-                          <span>{product.name} (x{product.quantity})</span>
+                          <span>
+                            {product.name} (x{product.quantity})
+                          </span>
                           <span className="text-sm text-gray-500">
                             <IndianRupee size={14} className="inline" />
                             {(product.price * product.quantity).toFixed(2)}

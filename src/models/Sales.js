@@ -9,29 +9,29 @@ const saleProductSchema = new Schema({
 const salesSchema = new Schema({
   customerName: {
     type: String,
-    required: true,
+    
   },
   contact: {
     type: String,
-    required: true,
+    
   },
   saleDate: {
     type: Date,
-    required: true,
+    
   },
   product: [saleProductSchema],
   paymentMethod: {
     type: String,
-    enum: ["Card", "Cash", "UPI", "credit_card", "debit_card", "mobile_payment"],
-    required: true,
+    // enum: ["Card", "Cash", "UPI", "credit_card", "debit_card", "mobile_payment"],
+    
   },
   salername: {
     type: String,
-    required: true,
+    
   },
   totalproduct: {
     type: Number,
-    required: true,
+    
   },
   discount: {
     type: Number,
@@ -43,7 +43,7 @@ const salesSchema = new Schema({
   },
   totalamount: {
     type: Number,
-    required: true,
+    
   },
 }, {
   timestamps: true,
