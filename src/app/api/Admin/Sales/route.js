@@ -10,27 +10,35 @@ export async function POST(req) {
     const body = await req.json(); // ✅ get parsed body
     console.log("Incoming Sale Data:", body);
 
+    if (!body.saleDate) {
+      console.warn("No saleDate provided, using current date");
+      body.saleDate = new Date().toISOString().split('T')[0];
+    }
+
     // Create a new sale document using instance
     const newSale = new saleModel({
       customerName: body.customerName,
-      customerContact: body.customerContact,
-      saleDate: body.saleDate,
-      products: body.products, // array of { name, price, quantity }
-      paymentMethod: body.paymentMethod,
+      contact: body.contact,
+      saleDate: new Date(body.saleDate),
+      product: body.product,
+      paymentMethod: body.paymentMethod, // double-check enum in your Mongoose schema
+      salername: body.salername, // assuming 'staff' is staff name
+      totalproduct: body.totalproduct,
+      discount: Number(body.discount),
       paymentStatus: body.paymentStatus,
-      discount: body.discount,
-      totalAmount: body.totalAmount,
-      staff: body.salername,
+      totalamount: body.totalamount,
     });
 
-    console.log(newSale)
+    console.log("This is route data", newSale.saleDate);
     // Save the sale to the DB
     await newSale.save(); // ✅ this is your user.save() pattern
-    console.log("Data save successfully")
+    console.log("Data save successfully");
     return NextResponse.json({ success: true, data: newSale }, { status: 201 });
-
   } catch (error) {
     console.error("Error saving sale:", error);
-    return NextResponse.json({ success: false, error: error.message || "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: error.message || "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

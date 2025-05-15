@@ -10,7 +10,7 @@ const NewSaleSchema = z.object({
     paymentMethod: z.enum(["cash", "credit_card", "debit_card", "mobile_payment"], { message: "Invalid payment method" }),
     paymentStatus: z.enum(["paid", "pending", "failed"], { message: "Invalid payment status" }).default("pending"),
     discount: z.number().min(0, { message: "Discount must be a positive number" }).max(100, { message: "Discount cannot exceed 100%" }).default(0),
-    // saleDate: z.date().default(() => new Date()),
+    saleDate: z.date().default(() => new Date()),
     staff: z.string().min(1, { message: "Staff ID is required" }),
 })
 

@@ -38,6 +38,7 @@ function NewSale() {
     defaultValues: {
       customerName: "",
       customerContact: "",
+      saleDate: new Date().toISOString().split("T")[0],
       productName: "",
       productPrice: 0,
       quantity: 1,
@@ -45,7 +46,6 @@ function NewSale() {
       paymentStatus: "pending",
       discount: 0,
       totalAmount: 0,
-      saleDate: new Date().toISOString().split("T")[0],
       staff: "",
     },
   });
@@ -54,6 +54,7 @@ function NewSale() {
     (total, product) => total + product.price * product.quantity,
     0
   );
+  const discount = Number(form.watch("discount") ?? 0);
 
   const handleAddProduct = () => {
     const productData = form.getValues();
@@ -67,44 +68,43 @@ function NewSale() {
     form.resetField("productPrice");
     form.resetField("quantity");
   };
- const onSubmit = async (formData) => {
-  try {
-    const saleData = {
-      salername: formData.staff, // assuming 'staff' is staff name
-      contact: formData.customerContact,
-      paymentMethod: formData.paymentMethod, // double-check enum in your Mongoose schema
-      paymentStatus: formData.paymentStatus,
-      saleDate: formData.saleDate,
-      discount: formData.discount,
-      totalamount: totalAmount - formData.discount, // use lowercase
-      totalproduct: products.reduce((acc, p) => acc + p.quantity, 0),
-      products, // already an array of products
-    };
+  const onSubmit = async (formData) => {
+    try {
+      const saleData = {
+        customerName: formData.customerName,
+        contact: formData.customerContact,
+        saleDate: formData.saleDate,
+        product: products,
+        paymentMethod: formData.paymentMethod, // double-check enum in your Mongoose schema
+        salername: formData.staff, // assuming 'staff' is staff name
+        totalproduct: Number(products.reduce((acc, p) => acc + p.quantity, 0)),
+        discount: Number(formData.discount),
+        paymentStatus: formData.paymentStatus,
+        totalamount: totalAmount - formData.discount, // use lowercase
+      };
 
-    console.log("Submitting saleData:", saleData);
+      console.log("Form date value:", saleData.saleDate);
 
-    const res = await fetch("/api/Admin/Sales", {
-      method: "POST",
-      body: JSON.stringify(saleData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      const res = await fetch("/api/Admin/Sales", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(saleData),
+      });
 
-    if (res.ok) {
-      clearProducts();
-      form.reset();
-      router.push("/Dashboard/Users/Sales/Sale");
-    } else {
-      const errorRes = await res.json();
-      console.error("API Error:", errorRes);
+      if (res.ok) {
+        clearProducts();
+        form.reset();
+        // router.push("/Dashboard/Users/Sales/Sale");
+      } else {
+        const errorRes = await res.json();
+        console.error("API Error:", errorRes);
+      }
+    } catch (err) {
+      console.error("Sale submission failed:", err);
     }
-  } catch (err) {
-    console.error("Sale submission failed:", err);
-  }
-};
-
-
+  };
 
   return (
     <div className="w-[95%] mx-auto mt-3 border rounded-lg h-auto shadow-md p-2">
@@ -225,11 +225,10 @@ function NewSale() {
                   name="saleDate"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Sale Date</FormLabel>
+                      <FormLabel>SaleDate</FormLabel>
                       <FormControl>
-                        <Input type="date" className={"w-40"} {...field} />
+                        <Input type={"date"} {...field} />
                       </FormControl>
-                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -351,14 +350,14 @@ function NewSale() {
                   <span>Discount:</span>
                   <span className="flex items-center">
                     -<IndianRupee size={18} />
-                    {form.watch("discount").toFixed(2)}
+                    {discount.toFixed(2)}
                   </span>
                 </div>
                 <div className="flex justify-between font-bold text-xl mt-2">
                   <span>Total:</span>
                   <span className="flex items-center">
                     <IndianRupee size={18} />
-                    {(totalAmount - form.watch("discount")).toFixed(2)}
+                    {(totalAmount - discount).toFixed(2)}
                   </span>
                 </div>
               </div>

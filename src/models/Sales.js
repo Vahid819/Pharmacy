@@ -17,7 +17,7 @@ const salesSchema = new Schema({
   },
   saleDate: {
     type: Date,
-    
+    required: true,
   },
   product: [saleProductSchema],
   paymentMethod: {
