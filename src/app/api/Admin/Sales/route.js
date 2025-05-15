@@ -10,9 +10,10 @@ export async function POST(req) {
     const body = await req.json(); // ✅ get parsed body
     console.log("Incoming Sale Data:", body);
 
-    if (!body.saleDate) {
-      console.warn("No saleDate provided, using current date");
-      body.saleDate = new Date().toISOString().split('T')[0];
+    let saleDate = new Date(body.saleDate);
+    if (isNaN(saleDate)) {
+      console.warn("Invalid saleDate format, using current date");
+      saleDate = new Date();
     }
 
     // Create a new sale document using instance
